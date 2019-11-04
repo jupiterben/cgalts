@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "lib": ["es6", "esnext", "dom", "es2015.collection"],
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "declaration": false,
+      "outDir": "dist"
+    },
+    "include": [ "src/*.ts" ],
+    "exclude": ["node_modules", "dist"]
+  }

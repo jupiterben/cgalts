@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,9 +12,12 @@
   "dependencies": {
     "std.ts": "0.0.15",
     "svgjs": "^2.6.2",
-    "typescript": "^3.5.2"
+    "typescript": "^3.6.4"
   },
   "devDependencies": {
-    "@types/node": "^12.6.8"
+    "@types/node": "^12.12.5",
+    "awesome-typescript-loader": "^5.2.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }

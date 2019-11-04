@@ -6,7 +6,7 @@ import { Stack, Queue } from 'std.ts';
  */
 
 class Arr_vertex_base {
-    p_pnt: Point_2;
+    p_pnt: Point_2 = new Point_2();
     p_inc; //from half edge
     point() { return this.p_pnt; }
 }
@@ -151,7 +151,7 @@ abstract class Gps_bfs_base_visitor {
         return (ic_f2);
     }
 
-    abstract contained_criteria(n:Int);
+    abstract contained_criteria(n: Int);
 };
 
 
@@ -201,7 +201,7 @@ class Gps_bfs_scanner {
         const ccb_end = ccb;
         let new_f;
         do {
-            
+
             Halfedge_iterator he = ccb_circ;
             new_f = he -> twin() -> face();
             if (!new_f -> visited()) {

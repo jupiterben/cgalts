@@ -1,4 +1,4 @@
-import assert = require("assert");
+import { assert } from "console";
 
 export enum Sign {
     NEGATIVE = -1, ZERO = 0, POSITIVE = 1,
@@ -19,31 +19,27 @@ export enum Sign {
 export type Orientation = Sign;
 export type Real = number;
 export type Int = number;
-
-class _One_root_point_2 {
-    _x: number;
-    _y: number;
-    x() { return this._x; }
-    y() { return this._y; }
+export class _One_root_point_2 {
+    constructor(public x: number = 0, public y: number = 0) { }
 }
-export type Point_2 = _One_root_point_2;
+type Point_2 = typeof _One_root_point_2;
 
 
-function Compare_number(a: number, b) {
+function Compare_number(a: number, b: number) {
     if (a < b) return Sign.SMALLER;
     if (a > b) return Sign.LARGER;
     return Sign.EQUAL;
 }
 
-export function Compare_xy_2(p1, p2): Sign {
+export function Compare_xy_2(p1: _One_root_point_2, p2: _One_root_point_2): Sign {
     if (p1 === p2)
         return (Sign.EQUAL);
 
-    const res = Compare_number(p1.x(), p2.x());
+    const res = Compare_number(p1.x, p2.x);
     if (res !== Sign.EQUAL)
         return (res);
 
-    return Compare_number(p1.y(), p2.y());
+    return Compare_number(p1.y, p2.y);
 }
 
 
@@ -111,7 +107,7 @@ interface ISegmentParam1 {
     Source,
     target,
 }
-interface ISegmentParam2{
+interface ISegmentParam2 {
     circ: Circle_2,
 
 }
@@ -123,7 +119,7 @@ class _Circle_segment_2 {
     _source?: Point_2;
     _target?: Point_2;
     _circ: Circle_2;
-    constructor(Circle_2 ) {
+    constructor(Circle_2) {
         this._circ = new Circle_2();
     }
 
