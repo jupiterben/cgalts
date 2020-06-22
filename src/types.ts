@@ -1,4 +1,4 @@
-import { assert } from "console";
+declare var global: any;
 
 export enum Sign {
     NEGATIVE = -1, ZERO = 0, POSITIVE = 1,
@@ -16,13 +16,16 @@ export enum Sign {
     // Comparison_result constants:
     SMALLER = -1, EQUAL = 0, LARGER = 1
 };
+
 export type Orientation = Sign;
 export type Real = number;
 export type Int = number;
-export class _One_root_point_2 {
+
+export class Point_2 {
     constructor(public x: number = 0, public y: number = 0) { }
 }
-type Point_2 = typeof _One_root_point_2;
+
+type _One_root_point_2 = Point_2;
 
 
 function Compare_number(a: number, b: number) {
@@ -122,8 +125,7 @@ class _Circle_segment_2 {
     constructor(Circle_2) {
         this._circ = new Circle_2();
     }
-
 }
 
 
-export const CGAL_assertion = assert;
+export const CGAL_assertion = global.assert;

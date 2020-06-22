@@ -1,82 +1,104 @@
-import { Arrangement_on_surface_2, Compare_vertex, Join_merge, Arr_entry } from "./arrangement";
-import { General_polygon_2, Int } from "./types";
+import { Arrangement_on_surface_2, Arr_accessor } from "./arrangement";
 
-/**
- * 
- */
-class Gps_on_surface_base_2 {
-    m_arr: Arrangement_on_surface_2;
-    /**
-     * 将polygon插入arrangment中  polygon必须与arrangement不相交
-     * @param pgn 
-     * @param arr 
-     */
-    _insert(pgn: General_polygon_2, arr: Arrangement_on_surface_2) {
 
+export class Point_2 {
+
+}
+
+export class X_monotone_curve_2 {
+
+}
+
+export class Polygon_2 {
+
+}
+
+export class Polygon_with_holes_2 {
+
+}
+
+export function overlay(arr1, arr2, arr3, functor: any) {
+
+}
+
+
+export class Gps_join_functor {
+
+}
+
+export class Polygon_Set_2 {
+    m_arr: Arrangement_on_surface_2 = new Arrangement_on_surface_2();
+
+    join(polygon: Polygon_2) {
+        this._join(polygon);
     }
 
-    joinPolygons(list: Array<General_polygon_2>, k: Int = 5) {
-        const arr_vec = Arr_entry[list.length + 1];
-        arr_vec[0].first = this.m_arr;
-        for (let i = 1; i < arr_vec.length; i++) {
-            const aos2 = arr_vec[i].first = new Arrangement_on_surface_2();
-            this._insert(list[i - 1], aos2);
-        }
-        function _build_sorted_vertices_vectors(arr_vec) {
-            arr_vec.forEach((item: Arr_entry) => {
-                const vertices = item.first.vertices().slice();
-                vertices.sort(Compare_vertex);
-            });
-        }
-
-        function _divide_and_conquer(lower: Int, upper: Int, arr_vec, k: Int, merge_func) {
-            if ((upper - lower) < k) {
-                merge_func(lower, upper, 1, arr_vec);
-                return;
+    _join(polygon: Polygon_2) {
+        if (this._is_empty_polygon(polygon)) return;
+        if (this._is_plane_polygon(polygon)) {
+            this.clear();
+            for (let face of this.m_arr.faces) {
+                face.set_contained(true);
             }
-
-            const sub_size = ((upper - lower + 1) / k);
-            let i = 0;
-            let curr_lower = lower;
-
-            for (; i < k - 1; ++i, curr_lower += sub_size) {
-                _divide_and_conquer(curr_lower, curr_lower + sub_size - 1, arr_vec, k,
-                    merge_func);
-            }
-            _divide_and_conquer(curr_lower, upper, arr_vec, k, merge_func);
-            merge_func(lower, curr_lower, sub_size, arr_vec);
             return;
         }
+        if (this.is_empty()) {
+            let arr = new Arrangement_on_surface_2();
+            this._insert(polygon, arr);
+            this.m_arr = arr;
+            return;
+        }
+        if (this.is_plane()) return;
 
-        _build_sorted_vertices_vectors(arr_vec);
-
-        const merge = new Join_merge();
-        _divide_and_conquer(0, arr_vec.length - 1, arr_vec, k, ()=>{merge.});
-
-    }
-    remove_redundant_edges() { }
-    _reset_faces() { }
-}
-
-
-
-class General_polygon_set_on_surface_2 extends Gps_on_surface_base_2 {
-
-}
-class General_polygon_set_2 extends General_polygon_set_on_surface_2 {
-    polygons_with_holes() {
-
+        const second_arr = new Arrangement_on_surface_2();
+        this._insert(polygon, second_arr);
+        this._joinArrangement(second_arr);
     }
 
-    join(ps1, ps2) {
-
+    is_plane() {
+        return this.m_arr.is_empty() && !this.m_arr.faces[0].contained();
+    }
+    is_empty() {
+        return this.m_arr.is_empty() && this.m_arr.faces[0].contained();
     }
 
-    intersection(ps1, ps2) { }
-    symmetric_difference(ps1, ps2) { }
-}
+    _is_plane_polygon(polygon: Polygon_2) {
+        //TODO
+        return false;
+    }
+    _is_empty_polygon(polygon: Polygon_2) {
+        //TODO
+        return false;
+    }
 
-class CircleC2 {
+    clear() {
+        this.m_arr.clear();
+    }
 
+    _joinArrangement(arr: Arrangement_on_surface_2) {
+        let result_arr = new Arrangement_on_surface_2();
+        overlay(this.m_arr, arr, result_arr, new Gps_join_functor());
+        this.m_arr = result_arr;
+        this.remove_redundant_edges();
+        this.is_valid();
+    }
+
+    //讲一个polygon插入arrangement 这个polygon完全包含于arrangement其中的一个face
+    _insert(polygon: Polygon_2, arr: Arrangement_on_surface_2) {
+        //TODO
+        const accessor = new Arr_accessor(arr);
+    }
+
+    remove_redundant_edges() {
+        this._remove_redundant_edges(this.m_arr);
+    }
+
+    _remove_redundant_edges(arr: Arrangement_on_surface_2) {
+        //TODO:
+    }
+
+    is_valid() {
+        //TODO
+        return true;
+    }
 }
-//main
