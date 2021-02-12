@@ -3,10 +3,8 @@
 
 
 export class PointC2<FT> {
-    base:
-
-       
-}
+    base: FT;      
+};
 
 // class PointC2<R_ extends any>{
 
