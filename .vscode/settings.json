@@ -1,5 +1,7 @@
 {
+    "explorer.excludeGitIgnore": true,
     "cSpell.words": [
+        "CGAL",
         "topol",
         "toussaint",
         "tstl"

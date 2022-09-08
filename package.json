@@ -1,24 +1,32 @@
 {
-  "name": "jscgal",
+  "name": "cgalts",
   "version": "1.0.0",
-  "description": "",
+  "description": "CGAL typescript version",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel --open",
+    "prebuild": "rimraf dist",
+    "build": "parcel build ",
+    "format": "prettier --write \"src/**/*.{ts,js,tsx}\"",
+    "lint": "prettier --check \"src/**/*.{ts,js,tsx}\"",
+    "build-types": "tsc -p ./tsconfig.d.json",
+    "test": "jest --coverage",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "std.ts": "0.0.15",
-    "svgjs": "^2.6.2",
-    "tstl": "^2.4.14",
-    "typescript": "^3.6.4"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/node": "^12.12.5",
-    "awesome-typescript-loader": "^5.2.1",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "@parcel/core": "^2.7.0",
+    "@types/node": "^18.7.15",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "husky": "^8.0.1",
+    "jest": "^28.1.3",
+    "parcel": "^2.7.0",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.3.4"
   }
 }
